@@ -172,3 +172,19 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+.sonarqube/
+.sonar/
+sonar-project.properties
+coverage/
+coverage.xml
+report.xml
+# Éviter de pusher les fichiers liés aux containers Docker
+docker-compose.override.yml
+*.log
+*.pid
+sonarqube/data/
+sonarqube/logs/
+sonarqube/extensions/
+sonarqube/conf/
+.secrets
