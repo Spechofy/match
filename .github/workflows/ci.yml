@@ -56,7 +56,7 @@ jobs:
 
       - name: Start FastAPI Container
         run: |
-          docker run -d -p 8000:8000 --name fastapi-cont matchs-fastapi
+          docker run -d -p 8000:8000 --name fastapi-container matchs-fastapi
           sleep 5  # Attendre que le service démarre
 
       - name: Run Unit Tests
