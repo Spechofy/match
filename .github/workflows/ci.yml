@@ -56,12 +56,24 @@ jobs:
 
       - name: Start FastAPI Container
         run: |
-          docker run -d -p 8000:8000 --name fastapi-container matchs-fastapi
-          sleep 5  # Attendre que le service démarre
+          docker run -d -p 8000:8000 --name fastapi-cont matchs-fastapi
+          echo "Waiting for FastAPI to be ready..."
+          for i in {1..10}; do
+            if curl -s http://localhost:8000; then
+              echo "FastAPI is ready"
+              break
+            fi
+            echo "Waiting..."
+            sleep 3
+          done
 
       - name: Run Unit Tests
         run: |
-          docker exec fastapi-container pytest --junitxml=report.xml
+          docker exec fastapi-cont pytest --junitxml=report.xml
+
+      - name: Clean up
+        run: |
+          docker rm -f fastapi-cont
 
   sonar-analysis:
     name: SonarQube Analysis
