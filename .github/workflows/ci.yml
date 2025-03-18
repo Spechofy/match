@@ -84,23 +84,14 @@ jobs:
     needs: unit-tests
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Install Sonar Scanner
-        run: |
-          wget -O sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
-          unzip sonar-scanner.zip
-          mv sonar-scanner-5.0.1.3006-linux /opt/sonar-scanner
-          echo "/opt/sonar-scanner/bin" >> $GITHUB_PATH
-
-      - name: Run SonarQube Analysis
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=fastapi-match \
-            -Dsonar.sources=. \
-            -Dsonar.host.url=$SONAR_HOST_URL \
-            -Dsonar.login=$SONAR_TOKEN
+      - uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
