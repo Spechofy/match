@@ -72,7 +72,7 @@ jobs:
         run: |
           docker run -d -p 8000:8000 --name fastapi-container ${{ secrets.DOCKER_USERNAME }}/matchs-fastapi:latest
           sleep 5  # Attendre que le service démarre
-          pytest --junitxml=report.xml  # Exécuter les tests dans le conteneur
+          pytest /app/tests --junitxml=report.xml # Exécuter les tests dans le conteneur
 
       - name: Clean up
         run: |
