@@ -175,7 +175,6 @@ cython_debug/
 
 .sonarqube/
 .sonar/
-sonar-project.properties
 coverage/
 coverage.xml
 report.xml
