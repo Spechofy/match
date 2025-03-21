@@ -187,4 +187,3 @@ sonarqube/logs/
 sonarqube/extensions/
 sonarqube/conf/
 .secrets
-sonar-project.properties
