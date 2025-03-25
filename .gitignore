@@ -187,3 +187,8 @@ sonarqube/logs/
 sonarqube/extensions/
 sonarqube/conf/
 .secrets
+package.json
+package-lock.json
+node_modules/
+commitlint.config.js
+.husky/
